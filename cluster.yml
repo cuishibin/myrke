@@ -1,0 +1,202 @@
+nodes:
+- address: 10.12.1.100
+  port: "22"
+  internal_address: ""
+  role:
+  - controlplane
+  - etcd
+  hostname_override: ""
+  user: docker
+  docker_socket: /var/run/docker.sock
+  ssh_key: ""
+  ssh_key_path: ~/.ssh/id_rsa
+  labels: {}
+- address: 10.12.1.111
+  port: "22"
+  internal_address: ""
+  role:
+  - worker
+  hostname_override: ""
+  user: docker
+  docker_socket: /var/run/docker.sock
+  ssh_key: ""
+  ssh_key_path: ~/.ssh/id_rsa
+  labels: {}
+- address: 10.12.1.112
+  port: "22"
+  internal_address: ""
+  role:
+  - worker
+  hostname_override: ""
+  user: docker
+  docker_socket: /var/run/docker.sock
+  ssh_key: ""
+  ssh_key_path: ~/.ssh/id_rsa
+  labels: {}
+- address: 10.12.1.115
+  port: "22"
+  internal_address: ""
+  role:
+  - worker
+  hostname_override: ""
+  user: docker
+  docker_socket: /var/run/docker.sock
+  ssh_key: ""
+  ssh_key_path: ~/.ssh/id_rsa
+  labels: {}
+- address: 10.12.1.118
+  port: "22"
+  internal_address: ""
+  role:
+  - worker
+  hostname_override: ""
+  user: docker
+  docker_socket: /var/run/docker.sock
+  ssh_key: ""
+  ssh_key_path: ~/.ssh/id_rsa
+  labels: {}
+- address: 10.12.1.119
+  port: "22"
+  internal_address: ""
+  role:
+  - worker
+  hostname_override: ""
+  user: docker
+  docker_socket: /var/run/docker.sock
+  ssh_key: ""
+  ssh_key_path: ~/.ssh/id_rsa
+  labels: {}
+- address: 10.12.1.126
+  port: "22"
+  internal_address: ""
+  role:
+  - worker
+  - etcd
+  hostname_override: ""
+  user: docker
+  docker_socket: /var/run/docker.sock
+  ssh_key: ""
+  ssh_key_path: ~/.ssh/id_rsa
+  labels: {}
+- address: 10.12.1.237
+  port: "22"
+  internal_address: ""
+  role:
+  - worker
+  hostname_override: ""
+  user: docker
+  docker_socket: /var/run/docker.sock
+  ssh_key: ""
+  ssh_key_path: ~/.ssh/id_rsa
+  labels: {}
+services:
+  etcd:
+    image: ""
+    extra_args: {}
+    extra_binds: []
+    extra_env: []
+    external_urls: []
+    ca_cert: ""
+    cert: ""
+    key: ""
+    path: ""
+    snapshot: false
+    retention: ""
+    creation: ""
+  kube-api:
+    image: ""
+    extra_args:
+      insecure-bind-address: 0.0.0.0
+      insecure-port: "8080"
+      secure-port: "6443"
+    extra_binds: []
+    extra_env: []
+    service_cluster_ip_range: 10.43.0.0/16
+    service_node_port_range: ""
+    pod_security_policy: false
+  kube-controller:
+    image: ""
+    extra_args: {}
+    extra_binds: []
+    extra_env: []
+    cluster_cidr: 10.42.0.0/16
+    service_cluster_ip_range: 10.43.0.0/16
+  scheduler:
+    image: ""
+    extra_args: {}
+    extra_binds: []
+    extra_env: []
+  kubelet:
+    image: ""
+    extra_args:
+      cadvisor-port: 4194
+      read-only-port: 10255
+    extra_binds: []
+    extra_env: []
+    cluster_domain: cluster.local
+    infra_container_image: ""
+    cluster_dns_server: 10.43.0.10
+    fail_swap_on: false
+  kubeproxy:
+    image: ""
+    extra_args: {}
+    extra_binds: []
+    extra_env: []
+network:
+  plugin: flannel
+  options: {}
+authentication:
+  strategy: x509
+  options: {}
+  sans: []
+addons: ""
+addons_include: []
+system_images:
+  etcd: 10.12.1.131:5000/rancher/coreos-etcd:v3.1.12
+  alpine: 10.12.1.131:5000/rancher/rke-tools:v0.1.10
+  nginx_proxy: 10.12.1.131:5000/rancher/rke-tools:v0.1.10
+  cert_downloader: 10.12.1.131:5000/rancher/rke-tools:v0.1.10
+  kubernetes_services_sidecar: 10.12.1.131:5000/rancher/rke-tools:v0.1.10
+  kubedns: 10.12.1.131:5000/rancher/k8s-dns-kube-dns-amd64:1.14.8
+  dnsmasq: 10.12.1.131:5000/rancher/k8s-dns-dnsmasq-nanny-amd64:1.14.8
+  kubedns_sidecar: 10.12.1.131:5000/rancher/k8s-dns-sidecar-amd64:1.14.8
+  kubedns_autoscaler: 10.12.1.131:5000/rancher/cluster-proportional-autoscaler-amd64:1.0.0
+  kubernetes: 10.12.1.131:5000/rancher/hyperkube:v1.10.3-rancher2
+  flannel: 10.12.1.131:5000/rancher/coreos-flannel:v0.9.1
+  flannel_cni: 10.12.1.131:5000/rancher/coreos-flannel-cni:v0.2.0
+  calico_node: 10.12.1.131:5000/rancher/calico-node:v3.1.1
+  calico_cni: 10.12.1.131:5000/rancher/calico-cni:v3.1.1
+  calico_controllers: ""
+  calico_ctl: 10.12.1.131:5000/rancher/calico-ctl:v2.0.0
+  canal_node: 10.12.1.131:5000/rancher/calico-node:v3.1.1
+  canal_cni: 10.12.1.131:5000/rancher/calico-cni:v3.1.1
+  canal_flannel: 10.12.1.131:5000/rancher/coreos-flannel:v0.9.1
+  wave_node: 10.12.1.131:5000/weaveworks/weave-kube:2.1.2
+  weave_cni: 10.12.1.131:5000/weaveworks/weave-npc:2.1.2
+  pod_infra_container: 10.12.1.131:5000/rancher/pause-amd64:3.1
+  ingress: 10.12.1.131:5000/rancher/nginx-ingress-controller:0.10.2-rancher3
+  ingress_backend: 10.12.1.131:5000/rancher/nginx-ingress-controller-defaultbackend:1.4
+ssh_key_path: ~/.ssh/id_rsa
+ssh_agent_auth: false
+authorization:
+  mode: rbac
+  options: {}
+ignore_docker_version: false
+kubernetes_version: ""
+private_registries: []
+ingress:
+  provider: ""
+  options: {}
+  node_selector: {}
+  extra_args: {}
+cluster_name: ""
+cloud_provider:
+  name: ""
+prefix_path: ""
+addon_job_timeout: 0
+bastion_host:
+  address: ""
+  port: ""
+  user: ""
+  ssh_key: ""
+  ssh_key_path: ""
